@@ -1,0 +1,184 @@
+
+//"quote.dart"
+class Quote {
+  String? text;
+  String? author;
+
+  Quote({this.text, this.author});
+}
+
+
+//"main.dart"
+
+import 'package:flutter/material.dart';
+import 'package:flutter_application_1/quote.dart';
+void main() {
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: MyWidget()));
+}
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  List<Quote> quotes = [
+    Quote(
+      text: 'Be yourself; everyone else is already tak',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'The truth is rarely pure and never simple',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'Be yourself; everyone else is already taken',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'The truth is rarely pure and never simple',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'Be yourself; everyone else is already taken',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'The truth is rarely pure and never simple',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'Be yourself; everyone else is already taken',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'I have nothing to declare except my genius',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'The truth is rarely pure and never simple',
+      author: 'Oscar Wilde',
+    ),
+    Quote(
+      text: 'Be yourself; everyone else is already taken',
+      author: 'Oscar Wilde',
+    ),
+
+  ];
+
+  Widget quoteTemplate(quote) {
+    return QuoteCard(quote: quote);  
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[500],
+      appBar: AppBar(
+        backgroundColor: Colors.grey[700],
+        title: Text(
+          'Create Card Qoute App',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: quotes.map((quote) => QuoteCard(
+            quote:quote,
+            delete:(){
+              setState(() {
+                quotes.remove(quote);
+              });
+            }
+            )).toList(),
+        ),
+      ),
+    );
+  }
+}
+
+
+@immutable
+class QuoteCard extends StatelessWidget {
+  
+  final Quote quote;
+  final Function? delete;
+  const QuoteCard({super.key, required this.quote,  this.delete});
+  
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.grey[700],
+      shadowColor: const Color.fromARGB(255, 40, 8, 128),
+      margin: EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
+      elevation: 10,
+      child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      key: ValueKey(quote.text),
+        child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+          quote.text ?? 'No text available',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'IndieFlower',
+          ),
+          ),
+          SizedBox(height: 6.0),
+          Text(
+          quote.author ?? 'Unknown',
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.white,
+            fontFamily: 'IndieFlower',
+          ),
+          ),
+          SizedBox(height: 4.0),
+          TextButton.icon(
+          onPressed: () { 
+            delete!();
+          },
+          icon: Icon(Icons.delete, color: Colors.white),
+          label: Text(
+            'Delete Quote',
+            style: TextStyle(color: Colors.white),
+          ),
+          ),
+        ],
+        ),
+      ),
+    );
+  }
+}
